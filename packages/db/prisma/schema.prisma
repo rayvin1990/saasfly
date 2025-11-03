@@ -1,20 +1,25 @@
 generator client {
-  provider     = "prisma-kysely"
-  output       = "."
-  fileName     = "types.ts"
-  enumFileName = "enums.ts"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("POSTGRES_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
 }
 
 enum SubscriptionPlan {
   FREE
   PRO
   BUSINESS
+}
+
+enum Status {
+  PENDING
+  CREATING
+  INITING
+  RUNNING
+  STOPPED
+  DELETED
 }
 
 model Customer {
@@ -27,7 +32,7 @@ model Customer {
   stripePriceId          String?
   stripeCurrentPeriodEnd DateTime?
   createdAt              DateTime          @default(now())
-  updatedAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
 
   @@index([authUserId])
 }
@@ -85,19 +90,9 @@ model K8sClusterConfig {
   plan       SubscriptionPlan? @default(FREE)
   network    String?
   createdAt  DateTime          @default(now())
-  updatedAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
   status     Status?           @default(PENDING)
   delete     Boolean?          @default(false)
 
-  // @@unique([plan, authUserId])
   @@index([authUserId])
-}
-
-enum Status {
-  PENDING
-  CREATING
-  INITING
-  RUNNING
-  STOPPED
-  DELETED
 }

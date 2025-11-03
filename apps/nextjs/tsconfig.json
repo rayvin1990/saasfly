@@ -4,21 +4,19 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
+      "@saasfly/ui/*": ["../../packages/ui/src/*"],
+      "@saasfly/ui": ["../../packages/ui/src"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "*.ts",
-    "*.tsx",
-    "*.mjs",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mjs",
     "src",
     "contentlayer.config.ts"
   ],

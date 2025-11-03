@@ -27,13 +27,14 @@
   "dependencies": {
     "@saasfly/auth": "workspace:*",
     "@saasfly/db": "workspace:*",
+    "@saasfly/stripe": "workspace:*",
     "@trpc/client": "10.44.1",
     "@trpc/server": "10.44.1",
-    "@t3-oss/env-nextjs": "0.8.0",
+    "@t3-oss/env-nextjs": "^0.13.8",
     "superjson": "2.2.1",
     "dinero.js": "2.0.0-alpha.14",
     "@dinero.js/currencies": "2.0.0-alpha.14",
-    "zod": "3.22.4",
+    "zod": "^4.1.12",
     "zod-form-data": "2.0.2"
   },
   "devDependencies": {

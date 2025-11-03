@@ -1,8 +1,9 @@
 import type { Config } from "tailwindcss";
+import sharedConfig from "@saasfly/tailwind-config";
 
-import baseConfig from "@saasfly/tailwind-config";
+const config: Pick<Config, "prefix" | "presets" | "content"> = {
+  content: ["./src/**/*.tsx"],
+  presets: [sharedConfig],
+};
 
-export default {
-  content: [...baseConfig.content, "../../packages/ui/src/**/*.{ts,tsx}"],
-  presets: [baseConfig],
-} satisfies Config;
+export default config;

@@ -1,28 +1,28 @@
-import type {NextRequest} from "next/server";
-import {fetchRequestHandler} from "@trpc/server/adapters/fetch";
+import { NextRequest } from "next/server";
 
-import {createTRPCContext} from "@saasfly/api";
-import {edgeRouter} from "@saasfly/api/edge";
-import {getAuth} from "@clerk/nextjs/server";
-
-// export const runtime = "edge";
-const createContext = async (req: NextRequest) => {
-    return createTRPCContext({
-        headers: req.headers,
-        auth: getAuth(req),
-    });
+const setCorsHeaders = (res: Response) => {
+  res.headers.set("Access-Control-Allow-Origin", "*");
+  res.headers.set("Access-Control-Request-Method", "*");
+  res.headers.set("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
+  res.headers.set("Access-Control-Allow-Headers", "*");
 };
 
-const handler = (req: NextRequest) =>
-    fetchRequestHandler({
-        endpoint: "/api/trpc/edge",
-        router: edgeRouter,
-        req: req,
-        createContext: () => createContext(req),
-        onError: ({error, path}) => {
-            console.log("Error in tRPC handler (edge) on path", path);
-            console.error(error);
-        },
-    });
+export const OPTIONS = () => {
+  const response = new Response(null, {
+    status: 204,
+  });
+  setCorsHeaders(response);
+  return response;
+};
 
-export {handler as GET, handler as POST};
+// 临时禁用 tRPC 路由
+const handler = async (req: NextRequest) => {
+  return new Response("tRPC endpoint temporarily disabled", {
+    status: 503,
+    headers: {
+      "Content-Type": "text/plain",
+    },
+  });
+};
+
+export { handler as GET, handler as POST };
